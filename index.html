@@ -67,13 +67,13 @@
       .apple-btn {
         background-color: #000;
         color: white;
-        margin-bottom: 16px;
       }
 
       /* 카카오 네비 버튼 */
       .kakao-btn {
         background-color: #ffe812;
         color: black;
+        margin-bottom: 16px;
       }
     </style>
     <script
@@ -105,9 +105,21 @@
 
       // 애플 네비게이션 시작
       function startAppleNavigation() {
-        const { x0, y0, x1, y1, x2, y2, x3, y3 } = getQueryParams();
+        const { name0, name1, name2, name3 } = getQueryParams();
 
-        const url = `https://maps.apple.com/?daddr=${x0},${y0}&daddr=${x1},${y1}&daddr=${x2},${y2}&daddr=${x3},${y3}&dirflg=d&t=h`;
+        // URL을 구성할 배열
+        const urlParams = [];
+
+        // 값이 존재하는 경우에만 추가
+        if (name0 && name0 !== "undefined") urlParams.push(`daddr=${name0}`);
+        if (name1 && name1 !== "undefined") urlParams.push(`daddr=${name1}`);
+        if (name2 && name2 !== "undefined") urlParams.push(`daddr=${name2}`);
+        if (name3 && name3 !== "undefined") urlParams.push(`daddr=${name3}`);
+
+        // URL 생성
+        const url = `https://maps.apple.com/?${urlParams.join(
+          "&"
+        )}&dirflg=d&t=h`;
         window.location.href = url;
       }
 
@@ -182,6 +194,20 @@
         내비게이션으로 연결됩니다
       </h2>
       <div>
+        <div>
+          <!-- Kakao Navi Button -->
+          <a
+            id="start-kakaoNavigation"
+            class="button kakao-btn"
+            href="javascript:startKakaoNavigation()"
+          >
+            <img
+              src="https://github.com/jinyoung1226/kakaoNaviWeb/blob/main/kakaoLogo.png?raw=true"
+              alt="Kakao Navi"
+            />
+            카카오 내비로 시작하기
+          </a>
+        </div>
         <!-- Apple Maps Navigation Button -->
         <a
           id="start-appleNavigation"
@@ -193,20 +219,6 @@
             alt="Apple Maps"
           />
           Apple Maps로 시작하기
-        </a>
-      </div>
-      <div>
-        <!-- Kakao Navi Button -->
-        <a
-          id="start-kakaoNavigation"
-          class="button kakao-btn"
-          href="javascript:startKakaoNavigation()"
-        >
-          <img
-            src="https://github.com/jinyoung1226/kakaoNaviWeb/blob/main/kakaoLogo.png?raw=true"
-            alt="Kakao Navi"
-          />
-          카카오 내비로 시작하기
         </a>
       </div>
     </div>
